@@ -1,26 +1,27 @@
 export class CatalogPage {
   constructor(page) {
     this.page = page;
+    this.searchInput = page.getByRole("textbox", { name: /search/i });
+    this.cards = page.locator(".card");
+  }
+
+  card(name) {
+    return this.cards.filter({ hasText: name });
   }
 
   async search(query) {
-    // BEGIN
-    // END
+    await this.searchInput.fill(query);
   }
 
   async selectBrand(brand) {
-    // BEGIN
-    // END
+    await this.page.getByRole("checkbox", { name: brand, exact: true }).check();
   }
 
   async openProduct(name) {
-    // BEGIN
-    // END
+    await this.page.getByRole("link").filter({ hasText: name }).first().click();
   }
 
   async nextPage() {
-    // BEGIN
-    // END
+    await this.page.getByRole("link", { name: "Next" }).first().click();
   }
 }
-
